@@ -1,0 +1,114 @@
+$height_card: 300px;
+
+.statistics__container {
+   padding: 100px 0;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 50px 0;
+   &__info {
+      max-width: 500px;
+      text-align: center;
+      h1 {
+         color: $neutral-very-dark-blue;
+         font-size: 1.8rem;
+         font-weight: 900;
+      }
+      p {
+         color: $neutral-grayish-violet;
+         line-height: 1.5rem;
+         margin-top: 20px;
+      }
+   }
+   &__cards {
+      display: flex;
+      width: 100%;
+      gap: 0 20px;
+      justify-content: center;
+      height: calc($height_card * 1.45);
+      .card {
+         min-height: $height_card;
+         position: relative;
+         background-color: rgba(255, 255, 255, 0.621);
+         border-radius: 10px;
+         padding: 80px 40px 40px 40px;
+         &__icon {
+            position: absolute;
+            content: '';
+            left: 30px;
+            top: -40px;
+            background-color: $primary-dark-violet;
+            padding: 20px;
+            border-radius: 100%;
+         }
+         &__title {
+            font-size: 1.6rem;
+            color: $neutral-very-dark-blue;
+            font-weight: 700;
+         }
+         &__info {
+            color: $neutral-grayish-violet;
+            line-height: 1.5rem;
+            margin-top: 20px;
+         }
+         &:first-child {
+            align-self: flex-start;
+         }
+         &:nth-child(2) {
+            align-self: center;
+            position: relative;
+         }
+         &:nth-child(2)::before,
+         &:nth-child(2)::after {
+            position: absolute;
+            content: '';
+            top: 40%;
+            width: 20px;
+            height: 10px;
+            background-color: $primary-cian;
+         }
+         &:nth-child(2)::before {
+            left: -20px;
+            top: 40%;
+         }
+         &:nth-child(2)::after {
+            right: -20px;
+            top: 40%;
+         }
+         &:last-child {
+            align-self: flex-end;
+         }
+      }
+
+      @media screen and (max-width: 850px) {
+         flex-direction: column;
+         height: unset;
+         align-items: center;
+         margin-top: 50px;
+         $gap: 100px;
+         gap: $gap 0;
+         .card {
+            max-width: 400px;
+            &:first-child,
+            &:last-child,
+            &:nth-child(2) {
+               align-self: unset;
+            }
+            &:nth-child(2)::before,
+            &:nth-child(2)::after {
+               width: 10px;
+               height: $gap;
+            }
+            &:nth-child(2)::before {
+               top: -$gap;
+               left: 50%;
+            }
+            &:nth-child(2)::after {
+               top: unset;
+               bottom: -$gap;
+               left: 50%;
+            }
+         }
+      }
+   }
+}

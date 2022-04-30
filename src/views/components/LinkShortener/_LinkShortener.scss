@@ -1,0 +1,97 @@
+.shortener__container {
+   width: 100%;
+   .shortener {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 10px;
+      width: 100%;
+      padding: 40px 30px;
+      gap: 0 20px;
+      background-color: $primary-dark-violet;
+      background-image: url('./../../assets/imgs/bg-shorten-desktop.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      .btn {
+         border-radius: 5px;
+      }
+      &__input {
+         position: relative;
+         width: 80%;
+         input {
+            color: rgb(42, 42, 42);
+            border-radius: 5px;
+            padding: 10px 10px;
+            width: 100%;
+         }
+      }
+      .text--error {
+         input {
+            border: 2px solid $secondary-red;
+         }
+         input::placeholder {
+            color: $secondary-red;
+            opacity: 0.5;
+         }
+      }
+      .text--error::before {
+         position: absolute;
+         content: 'Please add a link';
+         left: 0;
+         bottom: -25px;
+         color: $secondary-red;
+         font-size: 14px;
+      }
+
+      @media screen and (max-width: 500px) {
+         flex-direction: column;
+         gap: 40px 0;
+         &__input,
+         .btn {
+            width: 100%;
+         }
+      }
+   }
+   .shortener__content {
+      width: 100%;
+      background-color: white;
+      margin-top: 30px;
+      padding: 20px 50px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0 20px;
+      &__title {
+         max-width: 60%;
+         word-break: break-word;
+         font-weight: 700;
+         opacity: 0.9;
+         color: $neutral-very-dark-blue;
+      }
+      &__copy__container {
+         display: flex;
+         align-items: center;
+         gap: 0 40px;
+         p {
+            color: $primary-cian;
+            font-weight: 700;
+         }
+      }
+      @media screen and (max-width: 768px) {
+         flex-direction: column;
+         gap: 20px 0;
+         padding: 20px 0;
+         &__copy__container {
+            width: 100%;
+            border-top: 1px solid $neutral-very-dark-blue;
+            padding-top: 20px;
+            flex-direction: column;
+            gap: 20px 0;
+         }
+         &__btn {
+            width: 90%;
+         }
+      }
+   }
+}
