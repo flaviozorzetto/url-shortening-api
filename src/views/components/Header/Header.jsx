@@ -7,11 +7,7 @@ export default function Header(props) {
    const noTablet = (
       <header className="app__header">
          <div className="app__header__content">
-            <img
-               className="app__header__logo"
-               src="src/assets/imgs/logo.svg"
-               alt=""
-            />
+            <img className="app__header__logo" src={logo} alt="" />
             <ul className="app__header__list">
                <li className="app__header__list__item">
                   <a className="app__header__list__item__link" href="">
