@@ -13,7 +13,6 @@ export default class LinkShortener extends React.Component {
          itemList: JSON.parse(localStorage.getItem('listItem')) || [],
          loading: false,
          timeoutCopy: false,
-         lastClicked: '',
       };
 
       this.submitVal = this.submitVal.bind(this);
@@ -25,6 +24,19 @@ export default class LinkShortener extends React.Component {
    }
 
    componentDidMount() {
+      window.addEventListener('storage', e => {
+         if (e.key == 'listItem') {
+            if (e.newValue == '' || e.newValue == null) {
+               this.setState({
+                  itemList: [],
+               });
+            } else {
+               this.setState({
+                  itemList: JSON.parse(e.newValue),
+               });
+            }
+         }
+      });
       window.addEventListener('beforeunload', this.saveLocal);
    }
 
@@ -44,27 +56,23 @@ export default class LinkShortener extends React.Component {
       }
    }
 
-   saveToClipboard(link) {
-      if (link != this.state.lastClicked) {
-         let el = this.itensRef.current.filter(e => {
-            return e.key == link;
-         })[0];
+   async saveToClipboard(link) {
+      let el = this.itensRef.current.filter(e => {
+         return e.key == link;
+      })[0];
 
-         let mutateEl = el.el;
-         if (mutateEl.style.backgroundColor != '#3b3054') {
-            mutateEl.style.backgroundColor = '#3b3054';
-            mutateEl.innerHTML = 'Copied!';
-            this.setState({
-               lastClicked: link,
-            });
-            setTimeout(() => {
-               mutateEl.style.backgroundColor = null;
-               mutateEl.innerHTML = 'Copy';
-            }, 1000);
-         }
-         return navigator.clipboard.writeText(link);
+      let mutateEl = el.element;
+      if (mutateEl.style.backgroundColor != '#3b3054') {
+         mutateEl.style.backgroundColor = '#3b3054';
+         mutateEl.innerHTML = 'Copied!';
+         mutateEl.disabled = true;
+         setTimeout(() => {
+            mutateEl.disabled = false;
+            mutateEl.style.backgroundColor = null;
+            mutateEl.innerHTML = 'Copy';
+         }, 1000);
       }
-      alert('Já está copiado');
+      return navigator.clipboard.writeText(link);
    }
 
    async fetchLink(url) {
@@ -111,7 +119,7 @@ export default class LinkShortener extends React.Component {
                />
             </div>
             <button className="btn" type="submit" onClick={this.submitVal}>
-               Shorten It!
+               {this.state.loading ? 'Loading...' : 'Shorten It!'}
             </button>
          </div>
       );
@@ -136,7 +144,7 @@ export default class LinkShortener extends React.Component {
                                  ref={el =>
                                     (this.itensRef.current[i] = {
                                        key: e.full_link,
-                                       el: el,
+                                       element: el,
                                     })
                                  }
                                  className="btn shortener__content__btn"
